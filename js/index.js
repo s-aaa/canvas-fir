@@ -52,7 +52,6 @@ window.onload=function(){
 	    var white=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
 	    white.addColorStop(0.1,'#fff');
 	    white.addColorStop(1,'#ddd');
-
 	    ctx.shadowOffsetX=2;
 	    ctx.shadowOffsetY=2;
 	    ctx.shadowBlur=2;
@@ -100,8 +99,8 @@ window.onload=function(){
     if(localStorage.data){
     	qizi=JSON.parse(localStorage.data);
     	for (var i in qizi) {
-    		 var x=i.split('_')[0];
-      		 var y=i.split('_')[1];
+    		 var x=i.split('_')[0];//将'x_y'变成数组[x,y],并且取x
+      		 var y=i.split('_')[1];//将'x_y'变成数组[x,y],并且取y
       		 luozi(x,y,(qizi[i]=='black')?true:false);
     	}
 
