@@ -84,7 +84,7 @@ window.onload=function(){
 	ctx.stroke();*/
     
     var qizi={};
-    var kaiguan=true;
+    var kaiguan;
     canvas.onclick=function(e){
       var x=Math.round((e.offsetX-40.5)/40);
       var y=Math.round((e.offsetY-40.5)/40);
@@ -102,6 +102,8 @@ window.onload=function(){
     		 var x=i.split('_')[0];//将'x_y'变成数组[x,y],并且取x
       		 var y=i.split('_')[1];//将'x_y'变成数组[x,y],并且取y
       		 luozi(x,y,(qizi[i]=='black')?true:false);
+      		 kaiguan=!((qizi[i]=='black')?true:false)
+      		
     	}
 
     }
