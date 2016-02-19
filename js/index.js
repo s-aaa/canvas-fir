@@ -1,6 +1,9 @@
 window.onload=function(){
 	var canvas=document.querySelector('#canvas');
 	var ctx=canvas.getContext('2d');
+	var z=[160.5,480.5];//棋盘星点位置信息
+	var qizi={};//所有落子数据
+    var kaiguan=true;//标示该谁落子
 	ctx.beginPath();
 	
 	for (var i = 0; i < 15; i++) {
@@ -31,7 +34,7 @@ window.onload=function(){
 	ctx.moveTo(320.5,320.5);
 	ctx.arc(320.5,320.5,3,0,Math.PI*2);
 	ctx.fill();
-	var z=[160.5,480.5]
+	
 	for (var i = 0; i < z.length; i++) {
 	    for (var j = 0; j < z.length; j++) {
 	    	ctx.moveTo(z[i],z[j])
@@ -42,7 +45,9 @@ window.onload=function(){
     
 
     // 落子
-    // 画出的落子
+    /*x    number    落子x坐标
+      y    number    落子y坐标
+      color  boolean  true：black  false：white*/
     var luozi=function(x,y,color){
     	var zx=40*x+40.5;
     	var zy=40*y+40.5;
@@ -83,8 +88,7 @@ window.onload=function(){
 	ctx.lineTo(600,320);
 	ctx.stroke();*/
     
-    var qizi={};
-    var kaiguan=true;
+    
     canvas.onclick=function(e){
       var x=Math.round((e.offsetX-40.5)/40);
       var y=Math.round((e.offsetY-40.5)/40);
@@ -96,6 +100,7 @@ window.onload=function(){
       kaiguan=!kaiguan;
       localStorage.data=JSON.stringify(qizi);
     }
+    /*如果本地存储中有棋盘信息，读取数据并绘制到页面*/
     if(localStorage.data){
     	qizi=JSON.parse(localStorage.data);
     	for (var i in qizi) {
@@ -110,9 +115,12 @@ window.onload=function(){
 
     canvas.ondblclick=function(e){
     	e.stopPropagation();
+    }
+    document.ondblclick=function(){
     	localStorage.clear();
     	location.reload();
     }
+    	
 
 	/*ctx.fillStyle=lingrad;
 	ctx.fillRect(0,0,600,200);*/
