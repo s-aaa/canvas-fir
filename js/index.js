@@ -84,7 +84,7 @@ window.onload=function(){
 	ctx.stroke();*/
     
     var qizi={};
-    var kaiguan;
+    var kaiguan=true;
     canvas.onclick=function(e){
       var x=Math.round((e.offsetX-40.5)/40);
       var y=Math.round((e.offsetY-40.5)/40);
