@@ -32,9 +32,6 @@ window.onload=function(){
 		ctx.stroke();
 	}
 	
-	}
-	huaqipan();
-	
 	// 圆
 	ctx.moveTo(320.5,320.5);
 	ctx.arc(320.5,320.5,3,0,Math.PI*2);
@@ -47,6 +44,10 @@ window.onload=function(){
 	    	ctx.fill();
 	    }
 	}
+	}
+	huaqipan();
+	
+	
     
 
     // 落子
