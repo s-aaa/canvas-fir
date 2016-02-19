@@ -4,7 +4,7 @@ window.onload=function(){
 	var z=[160.5,480.5];//棋盘星点位置信息
 	var qizi={};//所有落子数据
     var kaiguan=localStorage.x?false:true;//标示该谁落子
-	ctx.beginPath();
+	
 
 	// 横线
 	var huaqipan=function(){
@@ -14,6 +14,7 @@ window.onload=function(){
 		lingrad.addColorStop(0.5,'red');
 		lingrad.addColorStop(1,'purple');
 		ctx.strokeStyle=lingrad;*/
+		ctx.beginPath();
 		ctx.moveTo(40,40.5+i*40);
 		ctx.lineTo(600,40.5+i*40);
 		ctx.stroke();
@@ -133,6 +134,7 @@ window.onload=function(){
       			qizi={};
       			huaqipan();
       			kaiguan=true;
+
       			return;
       		}else{
       			canvas.onclick=null;
