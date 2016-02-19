@@ -3,32 +3,36 @@ window.onload=function(){
 	var ctx=canvas.getContext('2d');
 	var z=[160.5,480.5];//棋盘星点位置信息
 	var qizi={};//所有落子数据
-    var kaiguan=true;//标示该谁落子
+    var kaiguan=localStorage.x?false:true;//标示该谁落子
 	ctx.beginPath();
-	
-	for (var i = 0; i < 15; i++) {
-		// 横线
-		var lingrad=ctx.createLinearGradient(40,40.5+i*40,600,40.5+i*40);
+
+	// 横线
+	var huaqipan=function(){
+		ctx.clearRect(0,0,640,640);
+		for (var i = 0; i < 15; i++) {
+		/*var lingrad=ctx.createLinearGradient(40,40.5+i*40,600,40.5+i*40);
 		lingrad.addColorStop(0.5,'red');
 		lingrad.addColorStop(1,'purple');
-		ctx.strokeStyle=lingrad;
+		ctx.strokeStyle=lingrad;*/
 		ctx.moveTo(40,40.5+i*40);
 		ctx.lineTo(600,40.5+i*40);
 		ctx.stroke();
 	};
 	// 竖线
+	
 	for (var i = 0; i < 15; i++) {
-		
-		var lingrad1=ctx.createLinearGradient(40.5+i*40,40,40.5+i*40,600);
+		/*var lingrad1=ctx.createLinearGradient(40.5+i*40,40,40.5+i*40,600);
 		lingrad1.addColorStop(0.5,'yellow');
 		lingrad1.addColorStop(1,'green');
-		ctx.strokeStyle=lingrad1;
+		ctx.strokeStyle=lingrad1;*/
 		ctx.beginPath();
 		ctx.moveTo(40.5+i*40,40);
 		ctx.lineTo(40.5+i*40,600);
 		ctx.stroke();
 	}
 	
+	}
+	huaqipan();
 	
 	// 圆
 	ctx.moveTo(320.5,320.5);
@@ -48,19 +52,22 @@ window.onload=function(){
     /*x    number    落子x坐标
       y    number    落子y坐标
       color  boolean  true：black  false：white*/
-    var luozi=function(x,y,color){
+    var luozi2=function(x,y,color){
     	var zx=40*x+40.5;
     	var zy=40*y+40.5;
 	    var black=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
 	    black.addColorStop(0.1,'#555');
 	    black.addColorStop(1,'black');
+
 	    var white=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
 	    white.addColorStop(0.1,'#fff');
 	    white.addColorStop(1,'#ddd');
+
 	    ctx.shadowOffsetX=2;
 	    ctx.shadowOffsetY=2;
 	    ctx.shadowBlur=2;
 	    ctx.shadowColor='rgba(0,0,0,0,5)'
+
     	ctx.beginPath();
     	ctx.fillStyle=color?black:white;
     	ctx.moveTo(40*x+40.5,40*y+40.5);
@@ -68,10 +75,18 @@ window.onload=function(){
 		ctx.fill();
     }
 	
-    // luozi(3,3,'heizi');
-    // luozi(4,3,false)
-
-	
+	var qiziimga=document.querySelector("#qiziimg")
+	var luozi=function(x,y,color){
+		var zx=40*x+40.5-18;
+    	var zy=40*y+40.5-18;
+    	if(color){
+    		ctx.drawImage(qiziimga,0,0,40,40,zx,zy,36,36);
+    		//0,0,40,40要显示图片的位置和大小，zx,zy,36,36切片的目标显示的位置和大小
+    	}else{
+    		ctx.drawImage(qiziimga,40,0,40,40,zx,zy,36,36)
+    	}
+    	
+	}
 
 	/*var lingrad=ctx.createLinearGradient(40,320,600,320);
 	lingrad.addColorStop(0,'red');
@@ -97,8 +112,81 @@ window.onload=function(){
       }
       luozi(x,y,kaiguan);
       qizi[x+'_'+y]=kaiguan?'black':'white';
+      if(kaiguan){
+      	if(panduan(x,y,'black')){
+      		alert('黑子赢');
+      		if(confirm('是否再来一局')){
+      			localStorage.clear();
+      			qizi={};
+      			huaqipan();
+      			kaiguan=true;
+      			return;
+      		}else{
+      			canvas.onclick=null;
+      		}
+      	}
+      }else{
+      	if(panduan(x,y,'white')){
+      		alert('白子赢');
+      		if(confirm('是否再来一局')){
+      			localStorage.clear();
+      			qizi={};
+      			huaqipan();
+      			kaiguan=true;
+      			return;
+      		}else{
+      			canvas.onclick=null;
+      		}
+      	}
+      }
       kaiguan=!kaiguan;
       localStorage.data=JSON.stringify(qizi);
+      if(!kaiguan){
+      	localStorage.x=1;
+      }else{
+      	localStorage.removeItem('x');
+      }
+    }
+
+    var xy2id=function(x,y){
+    	return x+'_'+y;
+    }
+    var panduan=function(x,y,color){
+      var shuju = filter(color);
+      var tx,ty,hang=1;shu=1;zuoxie=1;youxie=1;
+      
+      tx=x;ty=y;while( shuju [xy2id(tx-1,ty)]){tx--;hang++};
+      tx=x;ty=y;while( shuju [xy2id(tx+1,ty)]){tx++;hang++};
+      if(hang>=5){
+      	return true;
+      }
+      
+      tx=x;ty=y;while( shuju [xy2id(tx,ty-1)]){ty--;shu++};
+      tx=x;ty=y;while( shuju [xy2id(tx,ty+1)]){ty++;shu++};
+      if(shu>=5){
+      	return true;
+      }
+
+      tx=x;ty=y;while( shuju [xy2id(tx+1,ty-1)]){tx++;ty--;zuoxie++};
+      tx=x;ty=y;while( shuju [xy2id(tx-1,ty+1)]){tx--;ty++;zuoxie++};
+      if(zuoxie>=5){
+      	return true;
+      }
+      tx=x;ty=y;while( shuju [xy2id(tx+1,ty+1)]){tx--;ty++;youxie++};
+      tx=x;ty=y;while( shuju [xy2id(tx-1,ty-1)]){tx++;ty--;youxie++};
+      if(youxie>=5){
+      	return true;
+      }
+    }
+
+   var filter=function(color){
+    	var r={};
+    	for (var i in qizi) {
+    		if(qizi[i]==color){
+    			r[i]=qizi[i];
+    		}
+    	}
+    	return r;
     }
     /*如果本地存储中有棋盘信息，读取数据并绘制到页面*/
     if(localStorage.data){
@@ -107,7 +195,7 @@ window.onload=function(){
     		 var x=i.split('_')[0];//将'x_y'变成数组[x,y],并且取x
       		 var y=i.split('_')[1];//将'x_y'变成数组[x,y],并且取y
       		 luozi(x,y,(qizi[i]=='black')?true:false);
-      		 kaiguan=!((qizi[i]=='black')?true:false)
+      		 /*kaiguan=!((qizi[i]=='black')?true:false)*/
       		
     	}
 
