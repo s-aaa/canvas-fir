@@ -1,22 +1,22 @@
 window.onload=function(){
 	var canvas=document.querySelector('#canvas');
 	var ctx=canvas.getContext('2d');
-	var z=[160.5,480.5];//棋盘星点位置信息
+	var z=[140.5,460.5];//棋盘星点位置信息
 	var qizi={};//所有落子数据
     var kaiguan=localStorage.x?false:true;//标示该谁落子
 	
 
 	// 横线
 	var huaqipan=function(){
-		ctx.clearRect(0,0,640,640);
+		ctx.clearRect(0,0,600,600);
 		for (var i = 0; i < 15; i++) {
 		/*var lingrad=ctx.createLinearGradient(40,40.5+i*40,600,40.5+i*40);
 		lingrad.addColorStop(0.5,'red');
 		lingrad.addColorStop(1,'purple');
 		ctx.strokeStyle=lingrad;*/
 		ctx.beginPath();
-		ctx.moveTo(40,40.5+i*40);
-		ctx.lineTo(600,40.5+i*40);
+		ctx.moveTo(20,20.5+i*40);
+		ctx.lineTo(580,20.5+i*40);
 		ctx.stroke();
 	};
 	// 竖线
@@ -27,14 +27,14 @@ window.onload=function(){
 		lingrad1.addColorStop(1,'green');
 		ctx.strokeStyle=lingrad1;*/
 		ctx.beginPath();
-		ctx.moveTo(40.5+i*40,40);
-		ctx.lineTo(40.5+i*40,600);
+		ctx.moveTo(20.5+i*40,20);
+		ctx.lineTo(20.5+i*40,580);
 		ctx.stroke();
 	}
 	
 	// 圆
-	ctx.moveTo(320.5,320.5);
-	ctx.arc(320.5,320.5,3,0,Math.PI*2);
+	ctx.moveTo(300.5,300.5);
+	ctx.arc(300.5,300.5,3,0,Math.PI*2);
 	ctx.fill();
 	
 	for (var i = 0; i < z.length; i++) {
@@ -54,9 +54,9 @@ window.onload=function(){
     /*x    number    落子x坐标
       y    number    落子y坐标
       color  boolean  true：black  false：white*/
-    var luozi2=function(x,y,color){
-    	var zx=40*x+40.5;
-    	var zy=40*y+40.5;
+    /*var luozi2=function(x,y,color){
+    	var zx=40*x+20.5;
+    	var zy=40*y+20.5;
 	    var black=ctx.createRadialGradient(zx,zy,1,zx,zy,18);
 	    black.addColorStop(0.1,'#555');
 	    black.addColorStop(1,'black');
@@ -72,15 +72,15 @@ window.onload=function(){
 
     	ctx.beginPath();
     	ctx.fillStyle=color?black:white;
-    	ctx.moveTo(40*x+40.5,40*y+40.5);
-  		ctx.arc(40*x+40.5,40*y+40.5,18,0,Math.PI*2);
+    	ctx.moveTo(40*x+20.5,40*y+20.5);
+  		ctx.arc(40*x+20.5,40*y+20.5,18,0,Math.PI*2);
 		ctx.fill();
-    }
+    }*/
 	
 	var qiziimga=document.querySelector("#qiziimg")
 	var luozi=function(x,y,color){
-		var zx=40*x+40.5-18;
-    	var zy=40*y+40.5-18;
+		var zx=40*x+20.5-18;
+    	var zy=40*y+20.5-18;
     	if(color){
     		ctx.drawImage(qiziimga,0,0,40,40,zx,zy,36,36);
     		//0,0,40,40要显示图片的位置和大小，zx,zy,36,36切片的目标显示的位置和大小
@@ -107,8 +107,8 @@ window.onload=function(){
     
     
     canvas.onclick=function(e){
-      var x=Math.round((e.offsetX-40.5)/40);
-      var y=Math.round((e.offsetY-40.5)/40);
+      var x=Math.round((e.offsetX-20.5)/40);
+      var y=Math.round((e.offsetY-20.5)/40);
       if(qizi[x+'_'+y]){
       	return;
       }
@@ -211,8 +211,11 @@ window.onload=function(){
     	localStorage.clear();
     	location.reload();
     }
-    	
+    
 
+    
+
+     
 	/*ctx.fillStyle=lingrad;
 	ctx.fillRect(0,0,600,200);*/
 }

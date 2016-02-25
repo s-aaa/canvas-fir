@@ -1,3 +1,8 @@
+body{
+	margin: 0;
+	overflow: hidden;
+	background: rgba(188,151,73,0.6);
+}
 #canvas{
 	display: block;
 	position: absolute;
@@ -6,4 +11,62 @@
 	margin-top:-300px;
 	margin-left:-300px;
 	box-shadow: 0 0 3px black;
+	background: rgba(255,255,255,0.8);
+	z-index: 2;
+}
+.bg{
+	position: relative;
+	width:19860px;
+	height:646px;
+}
+.bg::before{
+	content: "";
+	display: block;
+	position: absolute;
+	background: url(../img/bg.jpg) no-repeat;
+	background-size:19860px 646px;
+	width:19860px;
+	height: 626px;
+	animation-duration: 1000s;
+	 animation-timing-function: linear; 
+	 animation-iteration-count: infinite;
+	 animation-name: before;
+}
+.bg::after{
+	content: "";
+	display: block;
+	position: absolute;
+	background: url(../img/bg.jpg) no-repeat;
+	background-size:19860px 646px;
+	width:19860px;
+	height: 626px;
+	animation-iteration-count: infinite;
+	 animation-timing-function: linear; 
+	 animation-name: after;
+	 animation-duration: 1000s;
+}
+@keyframes before{
+	1% {
+		transform:translate3d(0,0,0);
+	}
+	50%{
+		transform: translate3d(-19860px, 0,0);
+	}
+	50.1%{
+		transform: translate3d(19860px,0,0);
+	}
+	100%{
+		transform: translate3d(0,0,0);
+	}
+}
+@keyframes after{
+	1%{
+		transform: translate3d(19860px,0,0);
+	}
+	50%{
+		transform: translate3d(0,0,0);
+	}
+	100%{
+		transform: translate3d(-19860px,0,0);
+	}
 }
