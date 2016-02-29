@@ -14,10 +14,12 @@ body{
 	background: rgba(255,255,255,0.8);
 	z-index: 2;
 }
+
 .bg{
 	position: relative;
 	width:19860px;
 	height:646px;
+	transform: translateX(-150px);
 }
 .bg::before{
 	content: "";
