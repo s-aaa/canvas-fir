@@ -1,12 +1,11 @@
 body{
 	margin: 0;
 	overflow: hidden;
-	background: rgba(188,151,73,0.6);
 }
 #canvas{
 	display: block;
 	position: absolute;
-	left:50%;
+	left:55%;
 	top:50%;
 	margin-top:-300px;
 	margin-left:-300px;
@@ -17,19 +16,18 @@ body{
 
 .bg{
 	position: relative;
-	width:19860px;
-	height:646px;
-	transform: translateX(-150px);
+	width:1500px;
+	height:650px;
 }
 .bg::before{
 	content: "";
 	display: block;
 	position: absolute;
 	background: url(../img/bg.jpg) no-repeat;
-	background-size:19860px 646px;
-	width:19860px;
-	height: 626px;
-	animation-duration: 1000s;
+	background-size:cover;
+	width:1500px;
+	height: 100%;
+	animation-duration:300s;
 	 animation-timing-function: linear; 
 	 animation-iteration-count: infinite;
 	 animation-name: before;
@@ -39,36 +37,59 @@ body{
 	display: block;
 	position: absolute;
 	background: url(../img/bg.jpg) no-repeat;
-	background-size:19860px 646px;
-	width:19860px;
-	height: 626px;
+	background-size:cover;
+	width:1500px;
+	height: 100%;
 	animation-iteration-count: infinite;
-	 animation-timing-function: linear; 
-	 animation-name: after;
-	 animation-duration: 1000s;
+	animation-timing-function: linear; 
+	animation-name: after;
+	animation-duration: 300s;
 }
 @keyframes before{
 	1% {
 		transform:translate3d(0,0,0);
 	}
 	50%{
-		transform: translate3d(-19860px, 0,0);
+		transform: translate3d(-1400px, 0,0);
 	}
 	50.1%{
-		transform: translate3d(19860px,0,0);
+		transform: translate3d(1400px,0,0);
 	}
 	100%{
 		transform: translate3d(0,0,0);
 	}
 }
 @keyframes after{
-	1%{
-		transform: translate3d(19860px,0,0);
+	0%{
+		transform: translate3d(1400px,0,0);
 	}
 	50%{
 		transform: translate3d(0,0,0);
 	}
 	100%{
-		transform: translate3d(-19860px,0,0);
+		transform: translate3d(-1400px,0,0);
 	}
+}
+.img{
+	position: absolute;
+	bottom:50px;
+	left:35px;
+	background: url(../img/juanzhou.png) no-repeat center;
+	background-size:cover;
+	width:200px;
+	height:100px;
+}
+
+button.zailaiyiju{
+	position: absolute;
+	top:30px;
+	right:40px;
+	width: 120px;
+	height:30px;
+	border:none;
+	background: none;
+	font-size: 20px;
+	color:#444;
+	font-weight: bolder;
+	outline: none;
 }

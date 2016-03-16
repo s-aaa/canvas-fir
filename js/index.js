@@ -207,15 +207,14 @@ window.onload=function(){
     canvas.ondblclick=function(e){
     	e.stopPropagation();
     }
-    document.ondblclick=function(){
+    var zailaiyiju=document.querySelector('.zailaiyiju');
+
+    zailaiyiju.onclick=function(){
     	localStorage.clear();
-    	location.reload();
+      huaqipan();
+      history.go(0)
     }
-    
+ 
 
     
-
-     
-	/*ctx.fillStyle=lingrad;
-	ctx.fillRect(0,0,600,200);*/
 }
